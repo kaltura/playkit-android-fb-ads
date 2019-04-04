@@ -1,8 +1,7 @@
-package com.kaltura.playkit.plugins.fbinstream;
+package com.kaltura.playkit.plugins.fbads.fbinstream;
 
 
 import com.facebook.ads.internal.protocol.AdPlacementType;
-import com.kaltura.playkit.plugins.ads.AdPositionType;
 
 public class FBInStreamAd {
 

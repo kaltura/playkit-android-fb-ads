@@ -1,4 +1,4 @@
-package com.kaltura.playkit.plugins.fbinstream;
+package com.kaltura.playkit.plugins.fbads.fbinstream;
 
 import com.kaltura.playkit.plugins.ads.AdPositionType;
 
