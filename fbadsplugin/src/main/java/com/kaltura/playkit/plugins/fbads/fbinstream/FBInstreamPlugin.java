@@ -1,4 +1,4 @@
-package com.kaltura.playkit.plugins.fbinstream;
+package com.kaltura.playkit.plugins.fbads.fbinstream;
 
 import android.content.Context;
 import android.view.Gravity;
