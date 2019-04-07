@@ -29,9 +29,11 @@ dependencies {
 
     // TODO: when playkit without plugins is released, replace this.
 
-    implementation 'com.kaltura:playkit-android:a4dae03' // FBPlugin at 2019-04-04T17:29:50+03:00
+
     //implementation 'com.kaltura:playkit-android:dev-SNAPSHOT'
+    implementation 'com.kaltura:playkit-android:a4dae03' // FBPlugin at 2019-04-04T17:29:50+03:00
     //implementation project(":playkit")
+    
     api 'com.facebook.android:audience-network-sdk:5.0.0'
 
     //Ads libraries.
