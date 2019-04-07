@@ -26,6 +26,7 @@ import com.kaltura.playkit.PlayerEvent;
 import com.kaltura.playkit.ads.FBAdsPlayerEngineWrapper;
 import com.kaltura.playkit.ads.PKAdErrorType;
 import com.kaltura.playkit.ads.PKAdInfo;
+import com.kaltura.playkit.ads.PKAdPluginType;
 import com.kaltura.playkit.ads.PKAdProviderListener;
 import com.kaltura.playkit.player.PlayerEngine;
 import com.kaltura.playkit.plugins.ads.AdCuePoints;
@@ -522,6 +523,11 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     @Override
     public void skipAd() {
         log.d("Start skipAd");
+    }
+
+    @Override
+    public PKAdPluginType getAdPluginType() {
+        return PKAdPluginType.client;
     }
 
     @Override
