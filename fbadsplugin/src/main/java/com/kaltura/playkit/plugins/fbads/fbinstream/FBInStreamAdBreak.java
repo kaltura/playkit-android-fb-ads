@@ -38,9 +38,9 @@ public class FBInStreamAdBreak {
     public boolean isAdBreakPlayed() {
 
         for (FBInStreamAd  fbInStreamAd : fbInStreamAdList) {
-           if (!fbInStreamAd.isAdPlayed()) {
-               return false;
-           }
+            if (!fbInStreamAd.isAdPlayed()) {
+                return false;
+            }
         }
         return true;
     }
