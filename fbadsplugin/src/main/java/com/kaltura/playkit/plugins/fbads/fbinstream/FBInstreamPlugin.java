@@ -54,7 +54,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     private PlayerEngineWrapper adsPlayerEngineWrapper;
     private LinearLayout adContainer;
     private InstreamVideoAdView adView;
-    private TreeMap<Long, FBInStreamAdBreak> fbInStreamAdBreaksMap;
+    private TreeMap<Long,FBInStreamAdBreak> fbInStreamAdBreaksMap;
     private boolean isPlayerPrepared;
     private boolean isAdDisplayed;
     private boolean isAdError;
