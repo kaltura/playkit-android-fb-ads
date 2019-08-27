@@ -114,7 +114,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             PlayerEvent.PlayheadUpdated playheadUpdated = event;
             long position = (playheadUpdated.position/ 100) * 100;
 
-            log.e("FB Instream Ad position = " +  position);
+            log.d("FBInstreamAd content position = " +  position);
 
             if (fbInStreamAdBreaksMap != null && fbInStreamAdBreaksMap.containsKey(position) && !fbInStreamAdBreaksMap.get(position).isAdBreakPlayed()) {
                 isAdRequested = true;
@@ -308,6 +308,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
             @Override
             public void onAdLoaded(Ad ad) {
+
                 player.getView().hideVideoSurface();
                 // Instream video ad is loaded and ready to be displayed
                 log.d("FB Instream Ad is loaded and ready to be displayed!");
@@ -354,6 +355,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         adView.loadAd();
         isAdDisplayed = true;
     }
+
 
     private AdInfo createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
