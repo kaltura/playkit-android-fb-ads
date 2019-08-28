@@ -5,10 +5,34 @@ import java.util.List;
 
 public class FBInstreamConfig {
 
-    List<FBInStreamAdBreak> fbInStreamAdBreaks;
+    private List<FBInStreamAdBreak> fbInStreamAdBreaks;
+    private boolean enableDebugMode;
+    private String testDevice;
 
     public FBInstreamConfig(List<FBInStreamAdBreak> fbInStreamAdBreaks) {
         this.fbInStreamAdBreaks = fbInStreamAdBreaks;
+    }
+
+    public FBInstreamConfig enableDebugMode(boolean enableDebugMode) {
+        this.enableDebugMode = enableDebugMode;
+        return this;
+    }
+
+    public FBInstreamConfig setTestDevice(String testDevice) {
+        this.testDevice = testDevice;
+        return this;
+    }
+
+    public List<FBInStreamAdBreak> getFbInStreamAdBreaks() {
+        return fbInStreamAdBreaks;
+    }
+
+    public boolean isEnableDebugMode() {
+        return enableDebugMode;
+    }
+
+    public String getTestDevice() {
+        return testDevice;
     }
 
     public List<FBInStreamAdBreak> getAdBreakList() {
