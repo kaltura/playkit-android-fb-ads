@@ -31,6 +31,7 @@ import com.kaltura.playkit.ads.PKAdInfo;
 import com.kaltura.playkit.ads.PKAdPluginType;
 import com.kaltura.playkit.ads.PKAdProviderListener;
 import com.kaltura.playkit.player.PlayerEngine;
+import com.kaltura.playkit.player.PlayerSettings;
 import com.kaltura.playkit.plugins.ads.AdCuePoints;
 import com.kaltura.playkit.plugins.ads.AdEvent;
 import com.kaltura.playkit.plugins.ads.AdInfo;
@@ -640,7 +641,12 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     @Override
     public boolean isContentPrepared() {
-        return false;
+        return isPlayerPrepared;
+    }
+
+    private boolean isAdShouldAutoPlayOnResume() {
+        //currenty we do not have controll on FB ADS play/pause
+        return player.getSettings() instanceof PlayerSettings && ((PlayerSettings) player.getSettings()).isAdAutoPlayOnResume();
     }
 
     @Override
