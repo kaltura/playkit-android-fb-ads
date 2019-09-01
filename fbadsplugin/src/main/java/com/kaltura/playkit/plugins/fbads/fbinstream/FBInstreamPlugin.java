@@ -323,6 +323,8 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
                         adContainer.setVisibility(View.GONE);
                     }
                     getPlayerEngine().play();
+                } else {
+                    preparePlayer(true);
                 }
             }
 
