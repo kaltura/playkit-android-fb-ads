@@ -121,7 +121,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             PlayerEvent.PlayheadUpdated playheadUpdated = event;
             long position = (playheadUpdated.position/ 100) * 100;
 
-            log.d("FBInstreamAd content position = " +  position);
+            //log.d("FBInstreamAd content position = " +  position);
 
             if (fbInStreamAdBreaksMap != null && fbInStreamAdBreaksMap.containsKey(position) && !fbInStreamAdBreaksMap.get(position).isAdBreakPlayed()) {
                 isAdRequested = true;
