@@ -119,7 +119,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     private void addListeners() {
         this.messageBus.addListener(this, PlayerEvent.playheadUpdated, event -> {
             PlayerEvent.PlayheadUpdated playheadUpdated = event;
-            long position = (playheadUpdated.position/ 100) * 100;
+            long position = (playheadUpdated.position / 100) * 100;
 
             //log.d("FBInstreamAd content position = " +  position);
 
