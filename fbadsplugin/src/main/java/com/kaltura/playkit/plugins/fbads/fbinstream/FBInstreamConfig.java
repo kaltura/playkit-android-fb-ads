@@ -8,6 +8,7 @@ public class FBInstreamConfig {
     private List<FBInStreamAdBreak> fbInStreamAdBreaks;
     private boolean enableDebugMode;
     private String testDevice;
+    private boolean alwaysStartWithPreroll;
 
     public FBInstreamConfig(List<FBInStreamAdBreak> fbInStreamAdBreaks) {
         this.fbInStreamAdBreaks = fbInStreamAdBreaks;
@@ -33,6 +34,15 @@ public class FBInstreamConfig {
 
     public String getTestDevice() {
         return testDevice;
+    }
+
+    public FBInstreamConfig setAlwaysStartWithPreroll(boolean alwaysStartWithPreroll) {
+        this.alwaysStartWithPreroll = alwaysStartWithPreroll;
+        return this;
+    }
+
+    public boolean isAlwaysStartWithPreroll() {
+        return alwaysStartWithPreroll;
     }
 
     public List<FBInStreamAdBreak> getAdBreakList() {
