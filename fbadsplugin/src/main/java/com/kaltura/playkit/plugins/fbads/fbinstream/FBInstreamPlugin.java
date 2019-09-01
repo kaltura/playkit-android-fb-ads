@@ -628,7 +628,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     @Override
     public long getCurrentPosition() {
-        //return adPosition;
+        //messageBus.post(new AdEvent.AdPlayHeadEvent(currPos));
         return Consts.POSITION_UNSET;
     }
 
