@@ -71,7 +71,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     public static final Factory factory = new Factory() {
         @Override
         public String getName() {
-            return "FBInstream";
+            return "fbads";
         }
 
         @Override
