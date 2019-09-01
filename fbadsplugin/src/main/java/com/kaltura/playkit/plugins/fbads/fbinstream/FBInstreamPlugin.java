@@ -35,6 +35,7 @@ import com.kaltura.playkit.player.PlayerSettings;
 import com.kaltura.playkit.plugins.ads.AdCuePoints;
 import com.kaltura.playkit.plugins.ads.AdEvent;
 import com.kaltura.playkit.plugins.ads.AdInfo;
+import com.kaltura.playkit.plugins.ads.AdPositionType;
 import com.kaltura.playkit.plugins.ads.AdsProvider;
 import com.kaltura.playkit.plugins.fbads.fbinstream.admetadata.AdResponse;
 import com.kaltura.playkit.utils.Consts;
@@ -143,7 +144,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         this.messageBus.addListener(this, PlayerEvent.ended, event -> {
             List<FBInStreamAdBreak> instreamAdBreaks = adConfig.getFbInStreamAdBreaks();
             if (instreamAdBreaks != null && !instreamAdBreaks.isEmpty()) {
-                if (instreamAdBreaks.get(instreamAdBreaks.size() - 1).getAdBreakTime() == Long.MAX_VALUE) {
+                if (instreamAdBreaks.get(instreamAdBreaks.size() - 1).getAdBreakType() == AdPositionType.POST_ROLL) {
                     requestInStreamAdFromFB(instreamAdBreaks.get(instreamAdBreaks.size() - 1));
                     isAllAdsCompleted = true;
                 }
@@ -191,7 +192,11 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         }
         if (adConfig != null && adConfig.getAdBreakList() != null) {
             for (FBInStreamAdBreak adBreak : adConfig.getAdBreakList()) {
-                fbInStreamAdBreaksMap.put(adBreak.getAdBreakTime(), adBreak);
+                if (AdPositionType.POST_ROLL.equals(adBreak.getAdBreakType())) {
+                    fbInStreamAdBreaksMap.put(Long.MAX_VALUE, adBreak);
+                } else {
+                    fbInStreamAdBreaksMap.put(adBreak.getAdBreakTime(), adBreak);
+                }
             }
         }
         if (!fbInStreamAdBreaksMap.containsKey(0L)) {
