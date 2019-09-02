@@ -199,9 +199,27 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
                 }
             }
         }
+
+        if (getCuePointsList() != null) {
+            AdCuePoints cuePoints = new AdCuePoints(getCuePointsList());
+            cuePoints.setAdPluginName(FBInstreamPlugin.factory.getName());
+            messageBus.post(new AdEvent.AdCuePointsUpdateEvent(cuePoints));
+        }
         if (!fbInStreamAdBreaksMap.containsKey(0L)) {
             isAdRequested = true; // incase no preroll prepare....
         }
+    }
+
+    private List<Long> getCuePointsList() {
+        if (fbInStreamAdBreaksMap != null) {
+            List<Long> cuePointsList = new ArrayList<>(fbInStreamAdBreaksMap.keySet());
+            if (!cuePointsList.isEmpty() && cuePointsList.get(cuePointsList.size()-1) == Long.MAX_VALUE) {
+                cuePointsList.set(cuePointsList.size()-1, -1L);
+            }
+            return cuePointsList;
+
+        }
+        return null;
     }
 
     private void initAdContentFrame() {
