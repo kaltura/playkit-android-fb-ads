@@ -549,7 +549,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     public void start() {
         log.d("FB Instream Ads start");
         if (!isAdRequested && fbInStreamAdBreaksMap != null && fbInStreamAdBreaksMap.containsKey(0L)) {
-            if (playbackStartPosition > 0 && !adConfig.isAlwaysStartWithPreroll()) {
+            if (playbackStartPosition != null && playbackStartPosition > 0 && !adConfig.isAlwaysStartWithPreroll()) {
                 preparePlayer(true);
             } else {
                 requestInStreamAdFromFB(fbInStreamAdBreaksMap.get(0L));
