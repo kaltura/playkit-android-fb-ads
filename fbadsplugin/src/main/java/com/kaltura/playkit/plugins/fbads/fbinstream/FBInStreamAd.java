@@ -13,6 +13,11 @@ public class FBInStreamAd {
         this.adIndexInPod = adIndexInPod;
     }
 
+    // when using this constructor (preferred) the time and pod index will be initialized by the FBInStreamAdBreak constructor
+    public FBInStreamAd(String adPlacementId) {
+        this.adPlacementId = adPlacementId;
+    }
+
     public String getAdPlacementId() {
         return adPlacementId;
     }
