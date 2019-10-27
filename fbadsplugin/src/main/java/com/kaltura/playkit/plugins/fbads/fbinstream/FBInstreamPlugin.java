@@ -244,7 +244,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         }
         if(adConfig != null && adConfig.getAdBreakList() != null && adConfig.getAdBreakList().size() > 0) {
             if (adConfig.getAdBreakList().get(0).getAdBreakTime() == 0) {
-                if (playbackStartPosition > 0 && !adConfig.isAlwaysStartWithPreroll()) {
+                if (playbackStartPosition != null && playbackStartPosition > 0 && !adConfig.isAlwaysStartWithPreroll()) {
                     preparePlayer(true);
                 } else {
                     isAdRequested = true;
