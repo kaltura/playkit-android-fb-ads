@@ -205,8 +205,8 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             cuePoints.setAdPluginName(FBInstreamPlugin.factory.getName());
             messageBus.post(new AdEvent.AdCuePointsUpdateEvent(cuePoints));
         }
-        if (!fbInStreamAdBreaksMap.containsKey(0L)) {
-            isAdRequested = true; // incase no preroll prepare....
+        if (fbInStreamAdBreaksMap == null || fbInStreamAdBreaksMap.isEmpty() || !fbInStreamAdBreaksMap.containsKey(0L)) {
+            isAdRequested = true; // incase no preroll prepare or no ads
         }
     }
 
