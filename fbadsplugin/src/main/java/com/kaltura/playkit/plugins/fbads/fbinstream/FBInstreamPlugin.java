@@ -386,9 +386,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             public void onLoggingImpression(Ad ad) {
                 log.d("FB Instream Ads Impression logged!" + ad.toString());
                 updateAdInfo((InstreamVideoAdView) ad);
-                //resetTimer();
-                //adPosition = 0;
-                //scheduleTimer();
                 messageBus.post(new AdEvent.AdStartedEvent(adInfo));
             }
         });
@@ -414,30 +411,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         adInfo.setAdHeight(ad.getMeasuredHeight());
         adInfo.setAdWidth(ad.getMeasuredWidth());
     }
-
-//    private void scheduleTimer() {
-//        if (timer != null) {
-//            timer.schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    adPosition += 1000;
-//                }
-//
-//            }, 0, 1000);//Update text every second
-//        }
-//    }
-//
-//    void cancelTimer() {
-//        if (timer != null) {
-//            timer.cancel();
-//            timer = null;
-//        }
-//    }
-//
-//    private void resetTimer() {
-//        cancelTimer();
-//        timer = new Timer();
-//    }
 
     private AdInfo createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
@@ -525,10 +498,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     @Override
     protected void onApplicationResumed() {
         log.d("Start onApplicationResumed");
-//        if (isAdDisplayed) {
-//            timer = new Timer();
-//            scheduleTimer();
-//        }
     }
 
     @Override
