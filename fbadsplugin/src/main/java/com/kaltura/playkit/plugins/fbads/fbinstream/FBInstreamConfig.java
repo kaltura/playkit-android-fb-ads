@@ -21,6 +21,7 @@ public class FBInstreamConfig {
         return this;
     }
 
+    // need to set test device only for testing / development
     public FBInstreamConfig setTestDevice(String testDevice) {
         this.testDevice = testDevice;
         return this;
