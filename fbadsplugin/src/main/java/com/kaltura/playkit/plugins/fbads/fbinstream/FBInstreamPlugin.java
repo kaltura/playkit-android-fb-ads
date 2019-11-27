@@ -242,6 +242,25 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             playbackStartPosition = mediaConfig.getStartPosition();
             log.d("FB Instream Ad mediaConfig playbackStartPosition = " + playbackStartPosition);
         }
+
+        // disable ads coming earlier than stat position
+        for (Map.Entry<Long, FBInStreamAdBreak> entry : fbInStreamAdBreaksMap.entrySet()) {
+            if (entry == null || entry.getValue() == null) {
+                continue;
+            }
+            if (entry.getValue().getAdBreakType() == AdPositionType.PRE_ROLL && adConfig.isAlwaysStartWithPreroll()) {
+                continue;
+            }
+
+            if (playbackStartPosition != null && (entry.getValue().getAdBreakTime() / Consts.MILLISECONDS_MULTIPLIER) < playbackStartPosition) {
+                for (FBInStreamAd fbInStreamAd : entry.getValue().getFbInStreamAdList()) {
+                    if (fbInStreamAd != null) {
+                        fbInStreamAd.setAdPlayed(true);
+                    }
+                }
+            }
+        }
+
         if(adConfig != null && adConfig.getAdBreakList() != null && adConfig.getAdBreakList().size() > 0) {
             if (adConfig.getAdBreakList().get(0).getAdBreakTime() == 0) {
                 if (playbackStartPosition != null && playbackStartPosition > 0 && !adConfig.isAlwaysStartWithPreroll()) {
@@ -397,7 +416,15 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     }
 
     private void updateAdInfo(InstreamVideoAdView ad) {
+        if (ad == null) {
+            log.e("updateAdInfo -> ad == null");
+            return;
+        }
         Bundle fbGetSavedInstanceStateBundle = ad.getSaveInstanceState();
+        if (fbGetSavedInstanceStateBundle == null) {
+            log.e("updateAdInfo -> fbGetSavedInstanceStateBundle == null");
+            return;
+        }
         String adData = fbGetSavedInstanceStateBundle.getBundle("adapter").getString("ad_response");
         AdResponse adResponse = new Gson().fromJson(adData, AdResponse.class);
 
