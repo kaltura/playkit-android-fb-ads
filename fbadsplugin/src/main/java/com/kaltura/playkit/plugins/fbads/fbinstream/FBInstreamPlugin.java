@@ -192,17 +192,26 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         }
         if (adConfig != null && adConfig.getAdBreakList() != null) {
             for (FBInStreamAdBreak adBreak : adConfig.getAdBreakList()) {
-                if (AdPositionType.POST_ROLL.equals(adBreak.getAdBreakType())) {
-                    fbInStreamAdBreaksMap.put(Long.MAX_VALUE, adBreak);
-                } else {
-                    fbInStreamAdBreaksMap.put(adBreak.getAdBreakTime(), adBreak);
+                if (adBreak != null) {
+                    for (FBInStreamAd fbInStreamAd : adBreak.getFbInStreamAdList()) {
+                        if (fbInStreamAd != null) {
+                            fbInStreamAd.setAdPlayed(false);
+                        }
+                    }
+                    if (AdPositionType.POST_ROLL.equals(adBreak.getAdBreakType())) {
+                        fbInStreamAdBreaksMap.put(Long.MAX_VALUE, adBreak);
+                    } else {
+                        fbInStreamAdBreaksMap.put(adBreak.getAdBreakTime(), adBreak);
+                    }
                 }
             }
         }
 
         if (getCuePointsList() != null) {
             AdCuePoints cuePoints = new AdCuePoints(getCuePointsList());
-            cuePoints.setAdPluginName(FBInstreamPlugin.factory.getName());
+            if (cuePoints != null) {
+                cuePoints.setAdPluginName(FBInstreamPlugin.factory.getName());
+            }
             messageBus.post(new AdEvent.AdCuePointsUpdateEvent(cuePoints));
         }
         if (fbInStreamAdBreaksMap == null || fbInStreamAdBreaksMap.isEmpty() || !fbInStreamAdBreaksMap.containsKey(0L)) {
