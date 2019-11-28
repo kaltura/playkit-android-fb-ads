@@ -33,8 +33,7 @@ dependencies {
     // TODO: when playkit without plugins is released, replace this.
 
 
-    //implementation 'com.kaltura:playkit-android:dev-SNAPSHOT'
-    implementation 'com.kaltura:playkit-android:00ca800'
+    implementation 'com.kaltura:playkit-android:dev-SNAPSHOT'
     //implementation project(":playkit")
 
     api 'com.facebook.android:audience-network-sdk:5.5.0'
