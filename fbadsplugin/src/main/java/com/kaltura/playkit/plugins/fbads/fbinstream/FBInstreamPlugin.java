@@ -448,10 +448,10 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         adInfo.setAdWidth(ad.getMeasuredWidth());
     }
 
-    private AdInfo createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
+    private void createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
         String adDescription = ad.getAdPlacementId();
-        long adDuration = (long) ad.getAdBreakTime() * Consts.MILLISECONDS_MULTIPLIER;
+        long adDuration = ad.getAdBreakTime() * Consts.MILLISECONDS_MULTIPLIER;
         long adPlayHead = getCurrentPosition() * Consts.MILLISECONDS_MULTIPLIER;
         String adTitle = ad.getAdPlacementId();
         boolean isAdSkippable = false;
@@ -473,7 +473,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         long adPodTimeOffset = ad.getAdBreakTime();
         boolean isBumper = false;
 
-        if (!PKMediaFormat.mp4.mimeType.equals(PKMediaFormat.mp4) && adInfo != null) {
+        if (adInfo != null) {
             adHeight = adInfo.getAdHeight();
             adWidth = adInfo.getAdWidth();
             mediaBitrate = adInfo.getMediaBitrate();
@@ -497,7 +497,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
         log.v("AdInfo: " + adInfo.toString());
         this.adInfo = adInfo;
-        return adInfo;
     }
 
     private void preparePlayer(boolean doPlay) {
