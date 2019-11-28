@@ -119,8 +119,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     private void addListeners() {
         this.messageBus.addListener(this, PlayerEvent.playheadUpdated, event -> {
-            PlayerEvent.PlayheadUpdated playheadUpdated = event;
-            long position = (playheadUpdated.position / 100) * 100;
+            long position = (event.position / 100) * 100; // position is reported in 100ms multiplications
 
             //log.d("FBInstreamAd content position = " +  position);
 
@@ -429,23 +428,42 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             log.e("updateAdInfo -> ad == null");
             return;
         }
+
+        adInfo.setAdHeight(ad.getMeasuredHeight());
+        adInfo.setAdWidth(ad.getMeasuredWidth());
+
+        Long skippableOffset = getAdSkippableOffset(ad);
+        if (skippableOffset != null) {
+            adInfo.setAdSkipOffset(skippableOffset);
+        }
+    }
+
+    private Long getAdSkippableOffset(InstreamVideoAdView ad) {
+        if (ad == null) {
+            return null;
+        }
+
         Bundle fbGetSavedInstanceStateBundle = ad.getSaveInstanceState();
         if (fbGetSavedInstanceStateBundle == null) {
             log.e("updateAdInfo -> fbGetSavedInstanceStateBundle == null");
-            return;
+            return null;
         }
-        String adData = fbGetSavedInstanceStateBundle.getBundle("adapter").getString("ad_response");
-        AdResponse adResponse = new Gson().fromJson(adData, AdResponse.class);
 
-        if (adResponse != null &&
-                adResponse.getCapabilities() != null &&
-                adResponse.getCapabilities().getSkipButton() != null &&
-                adResponse.getCapabilities().getSkipButton().getSkippableSeconds() != null) {
-            log.d("FB Instream AdResponse skip = " + adResponse.getCapabilities().getSkipButton().getSkippableSeconds());
-            adInfo.setAdSkipOffset(Long.valueOf(adResponse.getCapabilities().getSkipButton().getSkippableSeconds()));
+        Bundle adapterBundle = fbGetSavedInstanceStateBundle.getBundle("adapter");
+        if (adapterBundle != null) {
+            String adData = adapterBundle.getString("ad_response");
+            if (adData != null) {
+                AdResponse adResponse = new Gson().fromJson(adData, AdResponse.class);
+                if (adResponse != null &&
+                        adResponse.getCapabilities() != null &&
+                        adResponse.getCapabilities().getSkipButton() != null &&
+                        adResponse.getCapabilities().getSkipButton().getSkippableSeconds() != null) {
+                    log.d("FB Instream AdResponse skip = " + adResponse.getCapabilities().getSkipButton().getSkippableSeconds());
+                    return Long.valueOf(adResponse.getCapabilities().getSkipButton().getSkippableSeconds());
+                }
+            }
         }
-        adInfo.setAdHeight(ad.getMeasuredHeight());
-        adInfo.setAdWidth(ad.getMeasuredWidth());
+        return null;
     }
 
     private void createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
@@ -604,7 +622,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     @Override
     public boolean isAlwaysStartWithPreroll() {
-        return (adConfig == null) ? false : adConfig.isAlwaysStartWithPreroll();
+        return adConfig != null && adConfig.isAlwaysStartWithPreroll();
     }
 
     @Override
