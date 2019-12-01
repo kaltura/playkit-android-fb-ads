@@ -90,10 +90,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
         }
     };
-
-    //private int adPosition;
-    //Timer timer;
-
+    
     @Override
     protected void onLoad(Player player, Object config, MessageBus messageBus, Context context) {
         log.d("FB Instream Ad onLoad");
@@ -546,7 +543,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     @Override
     protected void onApplicationPaused() {
         log.d("Start onApplicationPaused");
-        //timer.cancel();
     }
 
     @Override
@@ -565,7 +561,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             adContainer.removeAllViews();
             adContainer = null;
         }
-        //cancelTimer();
     }
 
     @Override
@@ -593,7 +588,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             adContainer.removeAllViews();
             adContainer = null;
         }
-        //cancelTimer();
     }
 
     @Override
