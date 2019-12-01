@@ -143,8 +143,9 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         this.messageBus.addListener(this, PlayerEvent.ended, event -> {
             List<FBInStreamAdBreak> instreamAdBreaks = adConfig.getFbInStreamAdBreaks();
             if (instreamAdBreaks != null && !instreamAdBreaks.isEmpty()) {
-                if (instreamAdBreaks.get(instreamAdBreaks.size() - 1).getAdBreakType() == AdPositionType.POST_ROLL) {
-                    requestInStreamAdFromFB(instreamAdBreaks.get(instreamAdBreaks.size() - 1));
+                int adbreakListSize = instreamAdBreaks.size();
+                if (instreamAdBreaks.get(adbreakListSize - 1).getAdBreakType() == AdPositionType.POST_ROLL) {
+                    requestInStreamAdFromFB(instreamAdBreaks.get(adbreakListSize - 1));
                     isAllAdsCompleted = true;
                 }
             }
