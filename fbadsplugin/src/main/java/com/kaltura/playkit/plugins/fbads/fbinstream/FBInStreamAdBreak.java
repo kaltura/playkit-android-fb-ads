@@ -13,6 +13,15 @@ public class FBInStreamAdBreak {
         this.adBreakType = adBreakType;
         this.adBreakTime = adBreakTime;
         this.fbInStreamAdList = fbInStreamAdList;
+        if (fbInStreamAdList != null && !fbInStreamAdList.isEmpty()) {
+            for (int i = 0 ; i < fbInStreamAdList.size() ; i++) {
+                FBInStreamAd fbInStreamAd = fbInStreamAdList.get(i);
+                if (fbInStreamAd != null) {
+                    fbInStreamAd.setAdBreakTime(adBreakTime);
+                    fbInStreamAd.setAdIndexInPod(i);
+                }
+            }
+        }
     }
 
     public List<FBInStreamAd> getFbInStreamAdList() {
@@ -38,9 +47,9 @@ public class FBInStreamAdBreak {
     public boolean isAdBreakPlayed() {
 
         for (FBInStreamAd  fbInStreamAd : fbInStreamAdList) {
-           if (!fbInStreamAd.isAdPlayed()) {
-               return false;
-           }
+            if (!fbInStreamAd.isAdPlayed()) {
+                return false;
+            }
         }
         return true;
     }
