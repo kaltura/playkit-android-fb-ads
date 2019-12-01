@@ -5,10 +5,47 @@ import java.util.List;
 
 public class FBInstreamConfig {
 
-    List<FBInStreamAdBreak> fbInStreamAdBreaks;
+    private List<FBInStreamAdBreak> fbInStreamAdBreaks;
+    private boolean enableDebugMode;
+    private String testDevice;
+    private boolean alwaysStartWithPreroll;
+
+    public FBInstreamConfig() {}
 
     public FBInstreamConfig(List<FBInStreamAdBreak> fbInStreamAdBreaks) {
         this.fbInStreamAdBreaks = fbInStreamAdBreaks;
+    }
+
+    public FBInstreamConfig enableDebugMode(boolean enableDebugMode) {
+        this.enableDebugMode = enableDebugMode;
+        return this;
+    }
+
+    // need to set test device only for testing / development
+    public FBInstreamConfig setTestDevice(String testDevice) {
+        this.testDevice = testDevice;
+        return this;
+    }
+
+    public List<FBInStreamAdBreak> getFbInStreamAdBreaks() {
+        return fbInStreamAdBreaks;
+    }
+
+    public boolean isEnableDebugMode() {
+        return enableDebugMode;
+    }
+
+    public String getTestDevice() {
+        return testDevice;
+    }
+
+    public FBInstreamConfig setAlwaysStartWithPreroll(boolean alwaysStartWithPreroll) {
+        this.alwaysStartWithPreroll = alwaysStartWithPreroll;
+        return this;
+    }
+
+    public boolean isAlwaysStartWithPreroll() {
+        return alwaysStartWithPreroll;
     }
 
     public List<FBInStreamAdBreak> getAdBreakList() {

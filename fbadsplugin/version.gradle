@@ -17,11 +17,11 @@ try {
 
     publish {
         artifactId = 'fbadsplugin'
-        description = 'PlayKit FB-Ads Plugin'
+        desc = 'PlayKit FB-Ads Plugin'
         repoName = 'android'
         userOrg = 'kaltura'
         groupId = 'com.kaltura.playkit'
-        version = libVersion
+        publishVersion = libVersion
         autoPublish = true
         licences = ['AGPL-3.0']
     }

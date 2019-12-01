@@ -1,21 +1,21 @@
 package com.kaltura.playkit.plugins.fbads.fbinstream;
 
-
-import com.facebook.ads.internal.protocol.AdPlacementType;
-
 public class FBInStreamAd {
 
     private String adPlacementId;
-    private AdPlacementType adPlacementType;
     private long adBreakTime;
     private boolean adPlayed;
     private int adIndexInPod;
 
-    public FBInStreamAd(String adPlacementId, AdPlacementType adPlacementType, long adBreakTime, int adIndexInPod) {
+    public FBInStreamAd(String adPlacementId, long adBreakTime, int adIndexInPod) {
         this.adPlacementId = adPlacementId;
-        this.adPlacementType = adPlacementType; //AdPlacementType.INSTREAM
         this.adBreakTime = adBreakTime;
         this.adIndexInPod = adIndexInPod;
+    }
+
+    // when using this constructor (preferred) the time and pod index will be initialized by the FBInStreamAdBreak constructor
+    public FBInStreamAd(String adPlacementId) {
+        this.adPlacementId = adPlacementId;
     }
 
     public String getAdPlacementId() {
@@ -24,14 +24,6 @@ public class FBInStreamAd {
 
     public void setAdPlacementId(String adPlacementId) {
         this.adPlacementId = adPlacementId;
-    }
-
-    public AdPlacementType getAdPlacementType() {
-        return adPlacementType;
-    }
-
-    public void setAdPlacementType(AdPlacementType adPlacementType) {
-        this.adPlacementType = adPlacementType;
     }
 
     public long getAdBreakTime() {
