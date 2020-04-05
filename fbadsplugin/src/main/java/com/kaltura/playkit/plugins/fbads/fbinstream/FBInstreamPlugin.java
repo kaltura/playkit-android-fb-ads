@@ -327,98 +327,103 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         // set ad listener to handle events
 
         createAdInfo(adBreak, currentAdInAdBreak);
+        InstreamVideoAdListener instreamVideoAdListener = getInstreamVideoAdListener(adBreak);
+        adView.buildLoadAdConfig().withAdListener(instreamVideoAdListener).build();
 
-        adView.setAdListener(new InstreamVideoAdListener() {
-            @Override
-            public void onAdVideoComplete(Ad ad) {
-                // Instream Video View Complete - the video has been played to the end.
-                // You can use this event to continue your video playing
-                log.d("FB Instream Ad completed!");
-
-                if (adBreak.isAdBreakPlayed() && isAllAdsCompleted) {
-                    isAllAdsCompleted = false;
-                    messageBus.post(new AdEvent(AdEvent.Type.ALL_ADS_COMPLETED));
-                }
-
-                if (adBreak.isAdBreakPlayed()) {
-                    messageBus.post(new AdEvent(AdEvent.Type.CONTENT_RESUME_REQUESTED));
-                    isAdDisplayed = false;
-                    player.getView().showVideoSurface();
-                    adContainer.setVisibility(View.GONE);
-                    getPlayerEngine().play();
-                } else {
-                    messageBus.post(new AdEvent(AdEvent.Type.CONTENT_PAUSE_REQUESTED));
-                    requestInStreamAdFromFB(adBreak);
-                }
-            }
-
-            @Override
-            public void onError(Ad ad, AdError adError) {
-                // Instream video ad failed to load
-                log.e("FB Instream Ad onError " + adError.getErrorCode() + ":" + adError.getErrorMessage());
-                isAdError = true;
-                isAdDisplayed = false;
-
-                sendError(PKAdErrorType.INTERNAL_ERROR, adError.getErrorCode() + ":" + adError.getErrorMessage(), null);
-
-                if (isPlayerPrepared) {
-                    if (adContainer != null) {
-                        adContainer.setVisibility(View.GONE);
-                    }
-                    getPlayerEngine().play();
-                } else {
-                    preparePlayer(true);
-                }
-            }
-
-            @Override
-            public void onAdLoaded(Ad ad) {
-                player.getView().hideVideoSurface();
-                // Instream video ad is loaded and ready to be displayed
-                log.d("FB Instream Ad is loaded and ready to be displayed!");
-                // Race condition, load() called again before last ad was displayed
-                log.d("FB Instream Ads Impression logged!" + ad.toString());
-
-                updateAdInfo((InstreamVideoAdView) ad);
-
-                messageBus.post(new AdEvent.AdBufferEnd(currentAdIndexInPod));
-
-                messageBus.post(new AdEvent.AdLoadedEvent(adInfo));
-
-                if (adView == null || !adView.isAdLoaded()) {
-                    return;
-                }
-
-                // Inflate Ad into container and show it
-                adContainer.removeAllViews();
-                adContainer.addView(adView);
-                adContainer.setVisibility(View.VISIBLE);
-                getPlayerEngine().pause();
-
-                adView.show();
-                isAdDisplayed = true;
-                if (!isPlayerPrepared) {
-                    preparePlayer(false);
-                }
-            }
-
-            @Override
-            public void onAdClicked(Ad ad) {
-                log.d("FB Instream Ad clicked!");
-            }
-
-            @Override
-            public void onLoggingImpression(Ad ad) {
-                log.d("FB Instream Ads Impression logged!" + ad.toString());
-                updateAdInfo((InstreamVideoAdView) ad);
-                messageBus.post(new AdEvent.AdStartedEvent(adInfo));
-            }
-        });
         if (getPlayerEngine().isPlaying()) {
             getPlayerEngine().pause();
         }
         adView.loadAd();
         isAdDisplayed = true;
+    }
+
+    private InstreamVideoAdListener getInstreamVideoAdListener(FBInStreamAdBreak adBreak) {
+        return new InstreamVideoAdListener() {
+                @Override
+                public void onAdVideoComplete(Ad ad) {
+                    // Instream Video View Complete - the video has been played to the end.
+                    // You can use this event to continue your video playing
+                    log.d("FB Instream Ad completed!");
+
+                    if (adBreak.isAdBreakPlayed() && isAllAdsCompleted) {
+                        isAllAdsCompleted = false;
+                        messageBus.post(new AdEvent(AdEvent.Type.ALL_ADS_COMPLETED));
+                    }
+
+                    if (adBreak.isAdBreakPlayed()) {
+                        messageBus.post(new AdEvent(AdEvent.Type.CONTENT_RESUME_REQUESTED));
+                        isAdDisplayed = false;
+                        player.getView().showVideoSurface();
+                        adContainer.setVisibility(View.GONE);
+                        getPlayerEngine().play();
+                    } else {
+                        messageBus.post(new AdEvent(AdEvent.Type.CONTENT_PAUSE_REQUESTED));
+                        requestInStreamAdFromFB(adBreak);
+                    }
+                }
+
+                @Override
+                public void onError(Ad ad, AdError adError) {
+                    // Instream video ad failed to load
+                    log.e("FB Instream Ad onError " + adError.getErrorCode() + ":" + adError.getErrorMessage());
+                    isAdError = true;
+                    isAdDisplayed = false;
+
+                    sendError(PKAdErrorType.INTERNAL_ERROR, adError.getErrorCode() + ":" + adError.getErrorMessage(), null);
+
+                    if (isPlayerPrepared) {
+                        if (adContainer != null) {
+                            adContainer.setVisibility(View.GONE);
+                        }
+                        getPlayerEngine().play();
+                    } else {
+                        preparePlayer(true);
+                    }
+                }
+
+                @Override
+                public void onAdLoaded(Ad ad) {
+                    player.getView().hideVideoSurface();
+                    // Instream video ad is loaded and ready to be displayed
+                    log.d("FB Instream Ad is loaded and ready to be displayed!");
+                    // Race condition, load() called again before last ad was displayed
+                    log.d("FB Instream Ads Impression logged!" + ad.toString());
+
+                    updateAdInfo((InstreamVideoAdView) ad);
+
+                    messageBus.post(new AdEvent.AdBufferEnd(currentAdIndexInPod));
+
+                    messageBus.post(new AdEvent.AdLoadedEvent(adInfo));
+
+                    if (adView == null || !adView.isAdLoaded()) {
+                        return;
+                    }
+
+                    // Inflate Ad into container and show it
+                    adContainer.removeAllViews();
+                    adContainer.addView(adView);
+                    adContainer.setVisibility(View.VISIBLE);
+                    getPlayerEngine().pause();
+
+                    adView.show();
+                    isAdDisplayed = true;
+                    if (!isPlayerPrepared) {
+                        preparePlayer(false);
+                    }
+                }
+
+                @Override
+                public void onAdClicked(Ad ad) {
+                    log.d("FB Instream Ad clicked!");
+                }
+
+                @Override
+                public void onLoggingImpression(Ad ad) {
+                    log.d("FB Instream Ads Impression logged!" + ad.toString());
+                    updateAdInfo((InstreamVideoAdView) ad);
+                    messageBus.post(new AdEvent.AdStartedEvent(adInfo));
+                }
+            };
     }
 
     private void updateAdInfo(InstreamVideoAdView ad) {
