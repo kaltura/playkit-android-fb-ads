@@ -249,13 +249,12 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
             log.d("FB Instream Ad mediaConfig playbackStartPosition = " + playbackStartPosition);
         }
 
-        // disable ads coming earlier than stat position
-
         // if onUpdateMediaIsCalled and any of the fbInStreamAdBreaksMap ad is signed as played then clear it
         if (!isOnUpdateMewidaValidMap()) {
             fbInStreamAdBreaksMap.clear();
         }
 
+        // disable ads coming earlier than stat position
         for (Map.Entry<Long, FBInStreamAdBreak> entry : fbInStreamAdBreaksMap.entrySet()) {
             if (entry == null || entry.getValue() == null) {
                 continue;
