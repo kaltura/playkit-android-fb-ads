@@ -250,7 +250,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         }
 
         // if onUpdateMediaIsCalled and any of the fbInStreamAdBreaksMap ad is signed as played then clear it
-        if (!isOnUpdateMewidaValidMap()) {
+        if (!isUpdateMediaValidAdBreakdMap()) {
             fbInStreamAdBreaksMap.clear();
         }
 
@@ -288,7 +288,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         preparePlayer(true);
     }
 
-    private boolean isOnUpdateMewidaValidMap() {
+    private boolean isUpdateMediaValidAdBreakdMap() {
         if (fbInStreamAdBreaksMap == null || fbInStreamAdBreaksMap.isEmpty()) {
             return false;
         }
