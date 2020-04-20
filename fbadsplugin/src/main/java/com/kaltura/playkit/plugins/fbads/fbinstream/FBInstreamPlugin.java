@@ -775,5 +775,4 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         AdEvent errorEvent = new AdEvent.Error(new PKError(errorType, message, exception));
         messageBus.post(errorEvent);
     }
-
 }
