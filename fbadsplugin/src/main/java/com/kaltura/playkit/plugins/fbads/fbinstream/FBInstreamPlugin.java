@@ -685,6 +685,13 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
     }
 
     @Override
+    public void resetPluginFlags() {
+        isAdError = false;
+        isAdDisplayed = false;
+        isAllAdsCompleted = false;
+    }
+
+    @Override
     public void setAdProviderListener(PKAdProviderListener adProviderListener) {
         pkAdProviderListener = adProviderListener;
     }
