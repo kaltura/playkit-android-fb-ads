@@ -471,7 +471,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     private void createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
-        
         String adDescription = ad.getAdPlacementId();
         long adDuration = ad.getAdBreakTime() * Consts.MILLISECONDS_MULTIPLIER;
         long adPlayHead = getCurrentPosition() * Consts.MILLISECONDS_MULTIPLIER;
