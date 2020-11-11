@@ -529,7 +529,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         this.adInfo = adInfo;
     }
 
-    
     private void preparePlayer(boolean doPlay) {
         isPlayerPrepared = true;
         if (pkAdProviderListener != null) {
