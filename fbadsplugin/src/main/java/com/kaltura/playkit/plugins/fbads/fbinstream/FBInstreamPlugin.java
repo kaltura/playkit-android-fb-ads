@@ -471,6 +471,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     private void createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
+        
         String adDescription = ad.getAdPlacementId();
         long adDuration = ad.getAdBreakTime() * Consts.MILLISECONDS_MULTIPLIER;
         long adPlayHead = getCurrentPosition() * Consts.MILLISECONDS_MULTIPLIER;
@@ -480,6 +481,12 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         String contentType = PKMediaFormat.mp4.mimeType;
         String adId = ad.getAdPlacementId();
         String adSystem = "facebook";
+        String creativeId = "";
+        String creativeAdId = "";
+        String advertiserName = "";
+        String dealId = "";
+        String surveyUrl = "";
+        String traffickingParams = "";
         int adHeight = 0;
         int adWidth  = 0;
         int mediaBitrate = -1;
@@ -502,8 +509,9 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
         AdInfo adInfo = new AdInfo(adDescription, adDuration, adPlayHead,
                 adTitle, isAdSkippable, skipTimeOffset,
-                contentType, adId,
-                adSystem,
+                contentType, adId, adSystem,
+                creativeId, creativeAdId, advertiserName,
+                dealId, surveyUrl, traffickingParams,
                 adHeight,
                 adWidth,
                 mediaBitrate,
