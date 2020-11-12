@@ -471,7 +471,6 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
 
     private void createAdInfo(FBInStreamAdBreak adBreak, FBInStreamAd ad) {
 
-        
         String adDescription = ad.getAdPlacementId();
         long adDuration = ad.getAdBreakTime() * Consts.MILLISECONDS_MULTIPLIER;
         long adPlayHead = getCurrentPosition() * Consts.MILLISECONDS_MULTIPLIER;
@@ -493,6 +492,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         int totalAdsInPod = adBreak.getFbInStreamAdList().size();
         int adIndexInPod = currentAdIndexInPod;
         int podCount = ad.getAdIndexInPod();
+        String streamId = "";
 
         int podIndex = ad.getAdIndexInPod();
         if (podIndex == 1 && podCount == 0) { // For Vast
@@ -523,6 +523,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
                 (adPodTimeOffset < 0 || adPodTimeOffset == Long.MAX_VALUE) ? -1 : adPodTimeOffset);
 
         adInfo.setAdPlayHead(player.getCurrentPosition() * Consts.MILLISECONDS_MULTIPLIER);
+        adInfo.setStreamId(streamId);
 
         log.v("AdInfo: " + adInfo.toString());
         this.adInfo = adInfo;
