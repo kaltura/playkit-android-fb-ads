@@ -32,17 +32,20 @@ dependencies {
 
     // TODO: when playkit without plugins is released, replace this.
 
-
     implementation 'com.kaltura:playkit-android:dev-SNAPSHOT'
     //implementation project(":playkit")
 
     api 'com.facebook.android:audience-network-sdk:5.6.0'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 repositories {
     google()
     jcenter()
+    mavenCentral()
     maven { url "https://jitpack.io" }
 }
+
+apply from: './gradle-mvn-push.gradle'
+
