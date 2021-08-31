@@ -486,6 +486,9 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         String dealId = "";
         String surveyUrl = "";
         String traffickingParams = "";
+        String[] adWrapperCreativeIds = null;
+        String[] adWrapperIds = null;
+        String[] adWrapperSystems = null;
         int adHeight = 0;
         int adWidth  = 0;
         int mediaBitrate = -1;
@@ -512,6 +515,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
                 contentType, adId, adSystem,
                 creativeId, creativeAdId, advertiserName,
                 dealId, surveyUrl, traffickingParams,
+                adWrapperCreativeIds, adWrapperIds, adWrapperSystems,
                 adHeight,
                 adWidth,
                 mediaBitrate,
