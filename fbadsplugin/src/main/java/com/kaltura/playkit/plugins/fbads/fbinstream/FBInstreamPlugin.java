@@ -41,6 +41,7 @@ import com.kaltura.playkit.plugins.fbads.fbinstream.admetadata.AdResponse;
 import com.kaltura.playkit.utils.Consts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -486,6 +487,9 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
         String dealId = "";
         String surveyUrl = "";
         String traffickingParams = "";
+        List<String> adWrapperCreativeIds = Collections.emptyList();
+        List<String> adWrapperIds = Collections.emptyList();
+        List<String> adWrapperSystems = Collections.emptyList();
         int adHeight = 0;
         int adWidth  = 0;
         int mediaBitrate = -1;
@@ -512,6 +516,7 @@ public class FBInstreamPlugin extends PKPlugin implements AdsProvider {
                 contentType, adId, adSystem,
                 creativeId, creativeAdId, advertiserName,
                 dealId, surveyUrl, traffickingParams,
+                adWrapperCreativeIds, adWrapperIds, adWrapperSystems,
                 adHeight,
                 adWidth,
                 mediaBitrate,
