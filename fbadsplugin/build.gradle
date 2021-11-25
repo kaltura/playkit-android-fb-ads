@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply from: 'version.gradle'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -16,7 +16,7 @@ android {
         versionName libVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        buildConfigField("String","VERSION_NAME","\"${libVersion}\"")
     }
 
     buildTypes {
@@ -42,7 +42,6 @@ dependencies {
 
 repositories {
     google()
-    jcenter()
     mavenCentral()
     maven { url "https://jitpack.io" }
 }
